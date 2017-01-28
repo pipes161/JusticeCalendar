@@ -1,0 +1,129 @@
+{%extends 'events/base.html'%} {%load staticfiles%}{%block content%}
+<div class="row">
+	<div class="col-xs-12 text-center">
+		<h3>From {{start_date}} to {{end_date}}</h3>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-6 text-left">
+		{%if previous_week%}<a href="{% url 'week' previous_week %}">&lt;
+			Previous Week</a>{%endif%}
+	</div>
+	<div class="col-xs-6 text-right">
+		{%if next_week%}<a href="{%url 'week' next_week%}">Next Week &gt;</a>{%endif%}
+	</div>
+</div>
+<div class="row">
+	{% for evt in events %}
+	<div class="col-md-4 col-xs-12">
+		<div class="tile">
+			<div class="row">
+				<div
+					class="col-xs-12 {% if not evt.description %}margin-bottom-lg{%endif%}">
+					<b>{{evt.title}}</b>
+				</div>
+			</div>
+			{% if evt.description %}
+			<div class="row margin-bottom-lg">
+				<div class="col-md-12">{{evt.description}}</div>
+			</div>
+			{% endif %}
+			<div class="row">
+				<div class="col-xs-3">Starts</div>
+				<div class="col-xs-9">{{evt.startDay}} at {{evt.startTime}}</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-3">Ends</div>
+				<div class="col-xs-9">{{evt.endDay}} at {{evt.endTime}}</div>
+			</div>
+			{% if evt.buildingRoom %}
+			<div class="row">
+				<div class="col-xs-12">
+					{{evt.buildingRoom}}
+				</div>
+			</div>
+			{% endif %}
+			{% if evt.address %}
+			<div class="row">
+				<div class="col-xs-12">
+					{{evt.address}}
+				</div>
+			</div>
+			{% endif %}
+			<div class="row margin-bottom-lg">
+				<div class="col-md-12">
+					<a target="_blank" href="{{evt.googleCalendarLink}}"><img
+						src="{%static "events/img/calendar-icon.png"%}" class="external_app_icon"
+						alt="Add to Google Calendar" title="Add to Google Calendar"></a>
+					{%if evt.fbEventLink %}
+					<a target="_blank" href="{{evt.fbEventLink}}"><img
+						src="{%static "events/img/FB-f-Logo__blue_50.png"%}" class="external_app_icon"
+						alt="Facebook Event" title="Facebook Event"></a>
+					{%endif%}
+					{%if evt.gobblerConnectLink %}
+					<a target="_blank" href="{{evt.gobblerConnectLink}}"><img
+						src="{%static "events/img/gc-favicon-96x96.png"%}" class="external_app_icon"
+						alt="Facebook Event" title="Facebook Event"></a>
+					{%endif%}
+					{%if evt.announcementWebsite %}
+					<a target="_blank" href="{{evt.announcementWebsite}}"><i class="fa fa-globe external_app_icon" aria-hidden="true" title="Event Website"></i></a>
+					{%endif%}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<button type="button" class="btn btn-default" data-toggle="collapse"
+						data-target=".{{evt.id}}collapsedDetails">+ show more
+						details</button>
+				</div>
+			</div>
+			<div class="row collapse {{evt.id}}collapsedDetails margin-bottom-lg">
+			</div>
+			{% if evt.sponsors %}
+			<div class="row collapse {{evt.id}}collapsedDetails">
+				<div class="col-xs-12">
+					Sponsored by {{evt.sponsors}}
+				</div>
+			</div>
+			{% endif %}
+			
+			{% if evt.primaryContactName or evt.primaryContactEmail %}
+			<div class="row margin-bottom-lg collapse {{evt.id}}collapsedDetails">
+			</div>
+			<div class="row collapse {{evt.id}}collapsedDetails">
+				<div class="col-xs-12">
+					Contact Details
+				</div>
+			</div>
+			{% endif %}
+			
+			{% if evt.primaryContactName %}
+			<div class="row collapse {{evt.id}}collapsedDetails">
+				<div class="col-xs-12">
+					{{evt.primaryContactName}}
+				</div>
+			</div>
+			{% endif %}
+			{% if evt.primaryContactEmail %}
+			<div class="row collapse {{evt.id}}collapsedDetails">
+				<div class="col-xs-12">
+					<a href="mailto:{{evt.primaryContactEmail}}">{{evt.primaryContactEmail}}</a>
+				</div>
+			</div>
+			{% endif %}
+			<div class="row margin-bottom-lg">
+			</div>
+			<div class="row small italics">
+				<div class="col-xs-3">
+					<em>Updated</em>
+				</div>
+				<div class="col-xs-9">
+					<em>{{evt.lastEditedAt}}</em>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% if forloop.counter|divisibleby:3 %}
+</div>
+<div class="row">{% endif %} {% endfor %}</div>
+{%endblock%}
