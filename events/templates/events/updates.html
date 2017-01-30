@@ -1,0 +1,31 @@
+{%extends 'events/base.html'%} {%load staticfiles%}{%block content%}
+<div class="row">
+	<div class="col-xs-12 text-center">
+		<h3>Here's what's happened recently</h3>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-offset-1 col-md-3 text-center">
+		Update Made At
+	</div>
+	<div class="col-md-4 text-center">
+		Event Changed
+	</div>
+	<div class="col-md-3 text-center">
+		Changed Details
+	</div>
+</div>
+{%for entry in log_entries%}
+<div class="row">
+	<div class="col-md-offset-1 col-md-3 text-center">
+		{{entry.action_time}}
+	</div>
+	<div class="col-xs-4 text-center">
+		{{entry.object_repr}}
+	</div>
+	<div class="col-md-3 text-center">
+		{{entry.change_message}}
+	</div>
+</div>
+{%endfor%}
+{%endblock%}

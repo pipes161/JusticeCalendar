@@ -1,5 +1,7 @@
 import datetime
 
+from django.contrib.admin.models import LogEntry
+from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import render
 from django.utils import timezone
 from django.views.generic.base import TemplateView
@@ -7,11 +9,24 @@ from django.views.generic.base import TemplateView
 from events.models import Event
 
 
+class Updates(TemplateView):
+    template_name = "events/updates.html"
+    
+    def get(self, request):
+        ignore_before=datetime.datetime(2017, 1, 28, 0, 30, 0, 0, timezone.pytz.timezone("US/Eastern"))
+        
+        context = {}
+        context['log_entries'] = LogEntry.objects.filter(action_time__gte=ignore_before,
+                                                         content_type=ContentType.objects.get(model="event"))
+        return render(request, self.template_name, context)
+
 # Create your views here.
 class OneWeek(TemplateView):
     template_name = "events/index.html"
     
-    def get(self, request, firstDay=str(timezone.now().date()), *args, **kwargs):
+    def get(self, request, firstDay=str(timezone.localtime(
+                                      timezone.now(), 
+                                      timezone=timezone.pytz.timezone("US/Eastern")).date()), *args, **kwargs):
         start_date = datetime.datetime.strptime(firstDay, "%Y-%m-%d").date()
         end_date = start_date + datetime.timedelta(days=6)
         

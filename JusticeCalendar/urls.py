@@ -17,11 +17,12 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.views.generic.base import TemplateView
 
-from events.views import OneWeek
+from events.views import OneWeek, Updates
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', OneWeek.as_view()),
     url(r'^week/(?P<firstDay>[0-9]{4}-[0-9]{2}-[0-9]{2})', OneWeek.as_view(), name="week"),
+    url(r'^updates$', Updates.as_view()),
 ]
