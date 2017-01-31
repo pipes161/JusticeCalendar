@@ -6,33 +6,33 @@ from django.db import models
 # Create your models here.
 class Event(models.Model):
     # MANDATORY FIELDS
-    title = models.CharField(max_length=200)
-    startDay = models.DateField(db_index=True)
-    startTime = models.TimeField(db_index=True)
-    addedAt = models.DateTimeField(auto_now_add=True)
-    lastEditedAt = models.DateTimeField(auto_now=True)
+    title = models.CharField(max_length=200, verbose_name="Title")
+    startDay = models.DateField(db_index=True, verbose_name="Start Date")
+    startTime = models.TimeField(db_index=True, verbose_name="Start Time")
+    addedAt = models.DateTimeField(auto_now_add=True, verbose_name="Added on")
+    lastEditedAt = models.DateTimeField(auto_now=True, verbose_name="Last Edit at")
     
     # OPTIONAL FIELDS
     # Ending Time
-    endDay = models.DateField(null=True, blank=True, db_index=True)
-    endTime = models.TimeField(null=True, blank=True, db_index=True)
+    endDay = models.DateField(null=True, blank=True, db_index=True, verbose_name="End Day")
+    endTime = models.TimeField(null=True, blank=True, db_index=True, verbose_name="End Time")
     
     # Description and Categorization
-    description = models.TextField(blank=True)
-    sponsors=models.TextField(blank=True)
+    description = models.TextField(blank=True, verbose_name="Description")
+    sponsors=models.TextField(blank=True, verbose_name="Sponsors")
     
     # Location Information
-    address = models.CharField(max_length=200, blank=True)
-    buildingRoom = models.CharField(max_length=200, blank=True)
+    address = models.CharField(max_length=200, blank=True, verbose_name="Street Address")
+    buildingRoom = models.CharField(max_length=200, blank=True, verbose_name="Building Name and Room Number")
     
     # Contact Information
-    primaryContactName = models.CharField(max_length=200, blank=True)
-    primaryContactEmail = models.CharField(max_length=200, blank=True)
+    primaryContactName = models.CharField(max_length=200, blank=True, verbose_name="Primary Contact Name")
+    primaryContactEmail = models.CharField(max_length=200, blank=True, verbose_name="Primary Contact Email")
     
     # External Links
-    fbEventLink = models.URLField(blank=True)
-    gobblerConnectLink = models.URLField(blank=True)
-    announcementWebsite = models.URLField(blank=True)
+    fbEventLink = models.URLField(blank=True, verbose_name="Facebook Event Link")
+    gobblerConnectLink = models.URLField(blank=True, verbose_name="GobblerConnect Event Link")
+    announcementWebsite = models.URLField(blank=True, verbose_name="Event Website")
     
     def __str__(self):
         return self.title

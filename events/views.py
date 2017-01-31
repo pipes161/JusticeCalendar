@@ -12,7 +12,7 @@ from events.models import Event
 class Updates(TemplateView):
     template_name = "events/updates.html"
     
-    def get(self, request):
+    def get(self, request):        
         ignore_before=datetime.datetime(2017, 1, 28, 0, 30, 0, 0, timezone.pytz.timezone("US/Eastern"))
         
         context = {}
