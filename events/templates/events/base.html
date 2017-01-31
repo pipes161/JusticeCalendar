@@ -78,7 +78,7 @@ body {
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12 text-center">
-				<h1>New River Valley Social Justice Calendar</h1>
+				<h1><a href="{% url 'homepage' %}">New River Valley Social Justice Calendar</a></h1>
 			</div>
 		</div>
 		{%block content%} {%endblock%}
@@ -86,8 +86,11 @@ body {
 	<footer class="footer">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12 col-md-offset-0 text-center footer_text">For my own
+				<div class="col-md-4 col-md-offset-0 text-center footer_text"><a href="{% url 'updates' %}">Event
+					Updates</a></div>
+				<div class="col-md-4 text-center footer_text">For my own
 					reference, and perhaps yours too</div>
+				<div class="col-md-4 text-center footer_text"><a href="{% url 'releases' %}">Website Updates</a></div>
 			</div>
 		</div>
 	</footer>

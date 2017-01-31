@@ -22,7 +22,8 @@ from events.views import OneWeek, Updates
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', OneWeek.as_view()),
+    url(r'^$', OneWeek.as_view(), name="homepage"),
     url(r'^week/(?P<firstDay>[0-9]{4}-[0-9]{2}-[0-9]{2})', OneWeek.as_view(), name="week"),
-    url(r'^updates$', Updates.as_view()),
+    url(r'^updates$', Updates.as_view(), name="updates"),
+    url(r'^releases', TemplateView.as_view(template_name="events/releases.html"), name="releases"),
 ]
