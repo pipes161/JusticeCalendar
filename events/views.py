@@ -13,21 +13,25 @@ class Updates(TemplateView):
     template_name = "events/updates.html"
     
     def get(self, request):        
-        ignore_before=datetime.datetime(2017, 1, 28, 0, 30, 0, 0, timezone.pytz.timezone("US/Eastern"))
+        ignore_before = datetime.datetime(2017, 1, 28, 0, 30, 0, 0, timezone.pytz.timezone("US/Eastern"))
         
         context = {}
-        context['log_entries'] = LogEntry.objects.filter(action_time__gte=ignore_before,
-                                                         content_type=ContentType.objects.get(model="event"))
+        # the number 3 for action_flag signifies a deletion
+        context['log_entries'] = LogEntry.objects.filter(action_time__gte = ignore_before,
+                                                         content_type=ContentType.objects.get(model="event")).exclude(action_flag=3)
         return render(request, self.template_name, context)
 
 # Create your views here.
 class OneWeek(TemplateView):
     template_name = "events/index.html"
     
-    def get(self, request, firstDay=str(timezone.localtime(
-                                      timezone.now(), 
-                                      timezone=timezone.pytz.timezone("US/Eastern")).date()), *args, **kwargs):
-        start_date = datetime.datetime.strptime(firstDay, "%Y-%m-%d").date()
+    def get(self, request, firstDay=None, *args, **kwargs):
+        start_date = timezone.localtime(
+                                      timezone.now(),
+                                      timezone=timezone.pytz.timezone("US/Eastern")).date()
+        if firstDay is not None:
+            start_date = datetime.datetime.strptime(firstDay, "%Y-%m-%d").date()
+        
         end_date = start_date + datetime.timedelta(days=6)
         
         context = {}
