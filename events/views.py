@@ -27,8 +27,8 @@ class OneWeek(TemplateView):
     
     def get(self, request, firstDay=None, *args, **kwargs):
         start_date = timezone.localtime(
-                                      timezone.now(),
-                                      timezone=timezone.pytz.timezone("US/Eastern")).date()
+                                        timezone.now(),
+                                        timezone=timezone.pytz.timezone("US/Eastern")).date()
         if firstDay is not None:
             start_date = datetime.datetime.strptime(firstDay, "%Y-%m-%d").date()
         
