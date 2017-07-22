@@ -13,18 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import include, url
-from django.contrib import admin
-from django.views.generic.base import TemplateView
-
-from events.views import OneWeek, Updates
+from django.conf.urls import url
+from transition.views import Timeline
 
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^$', OneWeek.as_view(), name="homepage"),
-    url(r'^week/(?P<firstDay>[0-9]{4}-[0-9]{2}-[0-9]{2})', OneWeek.as_view(), name="week"),
-    url(r'^updates$', Updates.as_view(), name="updates"),
-    url(r'^releases', TemplateView.as_view(template_name="events/releases.html"), name="releases"),
-    url(r'^transition/', include('transition.urls')),
+    url(r'^timeline/', Timeline.as_view(), name="timeline"),
 ]

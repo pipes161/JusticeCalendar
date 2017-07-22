@@ -1,0 +1,13 @@
+{%extends 'transition/base.html'%} {%load staticfiles%}{%block content%}
+<div class="row">
+	<div class="col-xs-12 text-center">
+		<h3>Major moments in my transition</h3>
+	</div>
+</div>
+{%for entry in entries%}
+<div class="timeline-item" date-is='{{entry.eventDay|date:"d-m-Y"}}'>
+	<h1>{{entry.title}}</h1>
+	<p>{{entry.description|linebreaks}}</p>
+</div>
+{%endfor%}
+{%endblock%}
