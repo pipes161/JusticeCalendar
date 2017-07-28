@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'events',
     'transition',
+    'organizations',
 ]
 
 MIDDLEWARE_CLASSES = [
