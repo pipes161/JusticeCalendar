@@ -27,5 +27,5 @@ urlpatterns = [
     url(r'^updates$', Updates.as_view(), name="updates"),
     url(r'^releases', TemplateView.as_view(template_name="events/releases.html"), name="releases"),
     url(r'^transition/', include('transition.urls')),
-    url(r'^organizations/', include('organizations.urls')),
+    url(r'^organizations/', include('organizations.urls'), name="organizations"),
 ]

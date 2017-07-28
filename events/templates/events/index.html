@@ -126,4 +126,9 @@
 	{% if forloop.counter|divisibleby:3 %}
 </div>
 <div class="row">{% endif %} {% endfor %}</div>
+<div class="row">
+	<div class="col-xs-12 text-center">
+		<h4><a href="{% url 'organizations' %}">View a list of local organizations and get involved!</a></h4>
+	</div>
+</div>
 {%endblock%}
