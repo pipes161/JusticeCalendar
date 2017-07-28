@@ -1,5 +1,7 @@
+from django.db.models.functions.base import Lower
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
+
 from organizations.models import Organization
 
 
@@ -9,6 +11,6 @@ class Organizations(TemplateView):
     
     def get(self, request):
         context = {}
-        context['organizations'] = Organization.objects.order_by('orgName')
+        context['organizations'] = Organization.objects.order_by(Lower('orgName'))
         return render(request, self.template_name, context)
     
