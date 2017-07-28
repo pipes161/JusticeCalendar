@@ -1,0 +1,74 @@
+{%extends 'organizations/base.html'%} {%load staticfiles%}
+{%block content%}
+<div class="row">
+	<div class="col-xs-12 text-center">
+		<h3>Alphabetical List of Organizations</h3>
+	</div>
+</div>
+<div class="row">
+	{% for org in organizations %}
+	<div class="col-md-4 col-xs-12">
+		<div class="tile">
+			<div class="row">
+				<div
+					class="col-xs-12 {% if not org.description %}margin-bottom-lg{%endif%}">
+					<b>{{org.orgName}}</b>
+				</div>
+			</div>
+			{% if org.description %}
+			<div class="row margin-bottom-lg">
+				<div class="col-md-12">{{org.description}}</div>
+			</div>
+			{% endif %}
+			<div class="row">
+				<div class="col-xs-12"><i>This description {{org.descriptionApproved|yesno:"is,is not" }} approved by the organization.</i></div>
+			</div>
+			{% if org.affilatedVT %}
+			<div class="row">
+				<div class="col-xs-12"><i>This organization is affiliated with Virginia Tech.</i></div>
+			</div>
+			{% endif %}
+			{% if org.contactEmail %}
+			<div class="row">
+				<div class="col-xs-12"><a target="_blank" href="mailto:{{org.contactEmail}}">{{org.contactEmail}}</a></div>
+			</div>
+			{% endif %}
+			{% if org.contactPhone %}
+			<div class="row">
+				<div class="col-xs-12">
+					<a target="_blank" href="tel:{{org.contactPhone}}">{{org.contactPhone}}</a>
+				</div>
+			</div>
+			{% endif %}
+			
+			<div class="row">
+				<div class="col-xs-12">
+				{%if org.facebookPage %}
+					<a target="_blank" href="{{org.facebookPage}}"><img
+						src="{%static "events/img/FB-f-Logo__blue_50.png"%}" class="external_app_icon"
+						alt="Facebook Event" title="Facebook Page"></a>
+				{%endif%}
+				{%if org.twitter %}
+					<a target="_blank" href="{{org.twitter}}"><img
+						src="{%static "organizations/img/TwitterLogo_#55acee.png"%}" class="external_app_icon"
+						alt="Facebook Event" title="Twitter Page"></a>
+				{%endif%}
+				{%if org.youtube %}
+					<a target="_blank" href="{{org.youtube}}"><img
+						src="{%static "organizations/img/YouTube-icon-full_color.png"%}" class="external_app_icon"
+						alt="Facebook Event" title="YouTube Page"></a>
+				{%endif%}
+				{%if org.website %}
+					<a target="_blank" href="{{org.website}}"><i class="fa fa-globe external_app_icon" aria-hidden="true" title="Event Website"></i></a>
+				{%endif%}
+				</div>
+			</div>
+		</div>
+	</div>
+	{% if forloop.counter|divisibleby:3 %}
+		</div>
+		<div class="row">
+	{% endif %} 
+{% endfor %}
+</div>
+{%endblock%}
