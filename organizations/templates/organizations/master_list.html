@@ -16,8 +16,11 @@
 				</div>
 			</div>
 			{% if org.description %}
-			<div class="row margin-bottom-lg">
-				<div class="col-md-12">{{org.description|linebreaks}}</div>
+			<div id="org-description-short-id{{org.id}}" class="row margin-bottom-lg">
+				<div class="col-md-12">{{org.description|truncatewords_html:100|linebreaks}}{% if org.description|wordcount > 100 %}<a href="javascript:expandOrgDescription({{org.id}});">(more)</a>{% endif %}</div>
+			</div>
+			<div style="display:none;" id="org-description-long-id{{org.id}}" class="row margin-bottom-lg">
+				<div class="col-md-12">{{org.description|linebreaks}}<a href="javascript:collapseOrgDescription({{org.id}});">(less)</a></div>
 			</div>
 			<div class="row">
 				<div class="col-xs-12"><i>This description {{org.descriptionApproved|yesno:"is,is not" }} approved by the organization.</i></div>
@@ -71,4 +74,14 @@
 	{% endif %} 
 {% endfor %}
 </div>
+<script>
+function expandOrgDescription(orgId){
+	$("#org-description-short-id"+orgId).hide();
+	$("#org-description-long-id"+orgId).show();
+};
+function collapseOrgDescription(orgId){
+	$("#org-description-short-id"+orgId).show();
+	$("#org-description-long-id"+orgId).hide();
+};
+</script>
 {%endblock%}
