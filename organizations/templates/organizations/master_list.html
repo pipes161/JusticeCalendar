@@ -17,7 +17,7 @@
 			</div>
 			{% if org.description %}
 			<div id="org-description-short-id{{org.id}}" class="row margin-bottom-lg">
-				<div class="col-md-12">{{org.description|truncatewords_html:100|linebreaks}}{% if org.description|wordcount > 100 %}<a href="javascript:expandOrgDescription({{org.id}});">(more)</a>{% endif %}</div>
+				<div class="col-md-12">{{org.description|truncatewords_html:100|linebreaks}}{% if org.description|wordcount >= 100 %}<a href="javascript:expandOrgDescription({{org.id}});">(more)</a>{% endif %}</div>
 			</div>
 			<div style="display:none;" id="org-description-long-id{{org.id}}" class="row margin-bottom-lg">
 				<div class="col-md-12">{{org.description|linebreaks}}<a href="javascript:collapseOrgDescription({{org.id}});">(less)</a></div>
