@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'events',
     'transition',
     'organizations',
+    'tdor',
 ]
 
 MIDDLEWARE_CLASSES = [

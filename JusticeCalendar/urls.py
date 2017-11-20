@@ -28,4 +28,5 @@ urlpatterns = [
     url(r'^releases', TemplateView.as_view(template_name="events/releases.html"), name="releases"),
     url(r'^transition/', include('transition.urls')),
     url(r'^organizations/', include('organizations.urls'), name="organizations"),
+    url(r'^tdor/', include('tdor.urls'), name="tdor"),
 ]
